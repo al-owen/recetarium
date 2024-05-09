@@ -1,8 +1,27 @@
 import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import formidable from 'formidable';
+
 export async function GET() {
-  return NextResponse.json("Hello, GET Next.js!");
+  try{
+    const meals = await prisma.meal.findMany();
+    return NextResponse.json({data:meals}, {status: 201});
+  }catch(error){
+    return new NextResponse(error.message, {status: 500});
+  }
 }
 
-export function POST() {
-  return NextResponse.json("Hello, POST Next.js!");
+export async function POST(request) {
+  try {
+    const data = await request.json();
+    const meal = await prisma.meal.create({ 
+      data:data 
+    });
+    return new NextResponse(JSON.stringify(meal), {
+      headers: {"Content-Type": "application/json"},
+      status: 201
+    });
+  } catch (error) {
+    return new NextResponse(error.message, { status: 500});
+  }
 }

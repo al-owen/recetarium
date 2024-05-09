@@ -12,8 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-gray-800 opacity-80">
-      {/* <div className="absolute inset-0 bg-fuchsia-400 bg-[size:20px_20px] opacity-20 blur-[100px]"></div> */}
+      <body className="bg-gray-800 opacity-80 bg-fixed h-screen">
         <Navbar />
         {children}
       </body>
